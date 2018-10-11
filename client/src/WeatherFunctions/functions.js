@@ -14,11 +14,6 @@ const fahrenheitToC = fahrenheitValue => {
 const windDirectionFunc = (numValue) => {
     console.log(numValue)
     let directionReturned = ''
-    // numValue = 180
-    // console.log(numValue)
-    // console.log(numValue, "<<<>>>", 146.25 < numValue && numValue < 168.75);
-    // console.log(numValue)
-    // console.log(numValue, '<<<>>>', 11.25 < numValue && numValue  < 33.75);
 
     if (numValue > 348.75 || numValue < 11.25) {
         directionReturned = "N";
@@ -55,21 +50,27 @@ const windDirectionFunc = (numValue) => {
     }else {
         directionReturned = `lol`;
     }
-
-    // console.log(numValue);
-    // console.log(directionReturned);
     return directionReturned
 }
 
 const dewPointCalc = (humidity, temperature) => {
     let celsiusValue = fahrenheitToC(temperature)
     console.log(celsiusValue)
-    // console.log(humidity);
-    // let dewPoint = ((humidity / 100) * (1 / 8))
-    // dewPoint = dewPoint * (112 + 0.9 * celsiusValue);
-    // dewPoint = dewPoint + (0.1 * celsiusValue - 112)
-    // let fahrenheitDewPoint = celsiusToF(dewPoint)
-    // return fahrenheitDewPoint;
+    // Ts = (b * α(T, RH)) / (a - α(T, RH))
+    // T = Temperature
+    // RH = Relative Humidity
+    // a and b are coefficients.
+    // For Sonntag90 constant set, a = 17.62 and b = 243.12°C;
+    let a = 17.62;
+    let b = 243.12;
+    let RH = humidity;
+    let T = fahrenheitToC(temperature);
+
+    let alpha = Math.log(RH / 100) + a * T / (b + T)
+    let dewPoint = celsiusToF((b * alpha) / (a - alpha))
+    console.log(dewPoint)
+
+    return dewPoint
 }
 
 export default {
