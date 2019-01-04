@@ -4,11 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "d3": "^5.7.0",
+    "d3-geo": "^1.11.1",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "2.0.3"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-live-clock": "^2.0.3",
+    "react-scripts": "2.0.3",
+    "react-simple-maps": "^0.12.1",
+    "topojson": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

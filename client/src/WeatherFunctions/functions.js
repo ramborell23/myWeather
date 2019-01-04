@@ -73,9 +73,22 @@ const dewPointCalc = (humidity, temperature) => {
     return dewPoint
 }
 
+//STRING FUNCTIONS
+
+const capFirstletter =(description)=>{
+
+    if(description==='nothing'){
+        return ''
+    }else{
+        return description[0].toUpperCase() + description.slice(1);
+    }
+}
+
 export default {
-    celsiusToF,
-    dewPointCalc,
-    fahrenheitToC,
-    windDirectionFunc,
+  celsiusToF,
+  dewPointCalc,
+  fahrenheitToC,
+  windDirectionFunc,
+
+  capFirstletter
 };

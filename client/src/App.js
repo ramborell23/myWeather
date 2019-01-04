@@ -1,14 +1,37 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import "./Stylesheets/main.css";
+// import "./Stylesheets/main.css";
+import "./Sass/main.css";
 import axios from 'axios'
 import weatherFunctions from "./WeatherFunctions/functions.js";
+import backgroundStorage from "./WeatherFunctions/backgroundStorage.js";
+import Clock from "react-live-clock";
+import BasicMap from "./map.jsx";
+
+// import {
+//   ComposableMap,
+//   ZoomableGroup,
+//   Geographies,
+//   Geography
+// } from "react-simple-maps";
+
+const wrapperStyles = {
+  width: "100%",
+  maxWidth: 980,
+  margin: "0 auto"
+};
 var moment = require("moment-timezone");
-// var moment = require("moment-timezone");
+var d3 = require("d3");
+var topojson = require("topojson");
+var d3Geo = require("d3-geo");
+var moment = require("moment-timezone");
 const dotenv = require("dotenv");
 dotenv.config();
 const sessionToken = Math.floor(Math.random() * 9999999999) + 1000000000;
+
+
+
 
 class App extends Component {
   constructor() {
@@ -17,25 +40,27 @@ class App extends Component {
       searchTerm: "",
       searchbar: "",
       locationTitle: "",
-      // locationLongtitude: '',
-      // locationLattitude: '',
+      locationLongtitude: '',
+      locationLattitude: '',
       cloudCover: "",
       humidity: "",
       temperature: "",
       sunrise: "",
       sunset: "",
-      weatherDescription: "",
+      weatherDescription: "nothing",
       windSpeed: "",
       windDirection: "",
       airPressure: "",
       momentTimezoneCity: "",
       momentTimezoneCountry: "",
       googleAutocomplete: [],
+      backgroundImage:'',
+      activeSearch:''
       // googleAutocompleteSelection: ""
-      
+
     };
   }
-  
+
 
   getWeather = () => {
     const { searchbar } = this.state;
@@ -62,6 +87,7 @@ class App extends Component {
           .then(res => {
             let weatherInfo = res.data;
             this.setState({
+              activeSearch: 'active',
               cloudCover: weatherInfo.clouds.all,
               humidity: weatherInfo.main.humidity,
               temperature: weatherInfo.main.temp,
@@ -70,7 +96,10 @@ class App extends Component {
               weatherDescription: weatherInfo.weather[0].description,
               windSpeed: weatherInfo.wind.speed,
               windDirection: weatherInfo.wind.deg,
-              airPressure: weatherInfo.main.pressure
+              airPressure: weatherInfo.main.pressure,
+              backgroundImage: backgroundStorage.backgrounds[backgroundStorage.randomize()],
+              locationLattitude: locationLattitude,
+              locationLongtitude: locationLongtitude
             });
             axios
               .get(`http://api.openweathermap.org/data/2.5/forecast?lat=${locationLattitude}&lon=${locationLongtitude}&units=imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)
@@ -89,9 +118,9 @@ class App extends Component {
                     fiveDayHashTable[
                       fiveDayForecast[i]["dt_txt"].slice(0, 10)
                     ] = [
-                      ...fiveDayHashTable[forecastIndexValue],
-                      fiveDayForecast[i]
-                    ];
+                        ...fiveDayHashTable[forecastIndexValue],
+                        fiveDayForecast[i]
+                      ];
                   } else {
                     fiveDayHashTable[
                       fiveDayForecast[i]["dt_txt"].slice(0, 10)
@@ -102,16 +131,16 @@ class App extends Component {
                 console.log("fiveDayHashTable====>", fiveDayHashTable);
                 this.setState({});
               })
-              .catch(function(error) {
+              .catch(function (error) {
                 console.log(error);
               });
             console.log(weatherInfo);
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log(error);
           });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -123,48 +152,49 @@ class App extends Component {
     if (event.target.value === 0) {
       //Returns 0 if a location is clicked
       inputValue = event.target.attributes[1]["nodeValue"];
-      console.log(" event.target.value", event.target.value);
-      console.log("(event.target.value === undefined", event.target.attributes[1]["nodeValue"]);
+      // console.log(" event.target.value", event.target.value);
+      // console.log("(event.target.value === undefined", event.target.attributes[1]["nodeValue"]);
     } else {
       //Returns a typed value if something is typed
       inputValue = event.target.value;
-      console.log(" event.target.value", event.target.value);
-      console.log("(event.target.value === undefined", event.target.attributes[1]["nodeValue"]);
-    } 
-    console.log('searchbar', searchbar)
+      // console.log(" event.target.value", event.target.value);
+      // console.log("(event.target.value === undefined", event.target.attributes[1]["nodeValue"]);
+    }
+    // console.log('searchbar', searchbar)
     event.persist();
 
     axios
-      .get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputValue}&types=(cities)&key=${process.env.REACT_APP_GOOGLE_API_KEY}&sessiontoken=${sessionToken}`)
+      .get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputValue}&types=(regions)&key=${process.env.REACT_APP_GOOGLE_API_KEY}&sessiontoken=${sessionToken}`)
       .then(res => {
         let googleAutocomplete = res.data.predictions;
         this.setState({
           googleAutocomplete: googleAutocomplete,
           searchbar: inputValue
         });
-        console.log("handleAutoComplete", googleAutocomplete);
+        // console.log("handleAutoComplete", googleAutocomplete);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
+
   };
 
-  
-  handleAutocompleteSeletion = (e)=>{
+
+  handleAutocompleteSeletion = (e) => {
     // e.persist()
     let autoSeleection = e.target.attributes[1]["nodeValue"];
     this.setState({
-      searchbar : autoSeleection
+      searchbar: autoSeleection
     })
-    console.log(e.target.attributes[1]['nodeValue']);
+    // console.log(e.target.attributes[1]['nodeValue']);
   }
 
-  handleChange = (event)=>{
+  handleChange = (event) => {
     // const {searchbar} = this.state
     this.setState({ searchbar: event.target.attributes[1]["nodeValue"] });
   }
-  
-  clearInput = ()=>{
+
+  clearInput = () => {
     this.setState({
       searchbar: ""
     })
@@ -185,7 +215,11 @@ class App extends Component {
       momentTimezoneCountry,
       googleAutocomplete,
       googleAutocompleteSelection,
-      searchbar
+      searchbar,
+      backgroundImage,
+      activeSearch,
+      locationLattitude,
+      locationLongtitude
     } = this.state;
 
     let sunsetMoment = moment.unix(sunset).format("h:mm:ss a");
@@ -193,58 +227,99 @@ class App extends Component {
     let dewPoint = weatherFunctions.dewPointCalc(humidity, temperature);
     // searchbar = googleAutocompleteSelection
     dewPoint = Math.round(dewPoint);
-    console.log('searchbar',searchbar)
+    // console.log('searchbar', searchbar)
+    console.log("weatherDescription", locationLattitude, locationLongtitude);
+    console.log("locationLongtitude", locationLongtitude);
+    console.log("locationLattitude", locationLattitude);
+    let rr = locationLattitude
+    // let along = locationLongtitude;
     let tempInputHolder = searchbar
-   
-    return <div className="App">
-        <title className="page-title">myWeather App</title>
+    
+    // console.log(backgroundStorage.backgrounds[backgroundStorage.randomize()]);
+
+    // let imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ05R2TdmpnTtoJc1zT1avGv7bsGFsAOVbB9MfoZI-Qn0xkHVu-8g";
+    var divStyle = {
+      backgroundImage: 'url(' + backgroundImage + ')',
+      // backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      height:'100%',
+      backgroundSize: 'contain'
+
+    }
+    return <div ref="app-back">
+        <div className="page-header">
+          {/* <title className="page-title"> myWeather App</title> */}
+          <Clock className={"page-title-clock"} format={"h:mm:ssa"} ticking={true} />
+        </div>
 
         <div className="main-container ">
-          <h2>{locationTitle}</h2>
-          Time Stamp
-          {new Date().toLocaleTimeString()}
-          <p>Cloud Cover {cloudCover}%</p>
-          <br />
-          <p>Humidity {humidity}%</p>
-          <br />
-          <p>Temperature {temperature}°</p>
-          <br />
-          <p>Sunrise {sunriseMoment}</p>
-          <br />
-          <p>Sunset {sunsetMoment}</p>
-          <br />
-          <p>{weatherDescription}</p>
-          <br />
-          <p>
-            Wind Speed {windSpeed} {"mph"}
-          </p>
-          <br />
-          <p>
-            Wind Direction{" "}
-            {weatherFunctions.windDirectionFunc(windDirection)}
-          </p>
-          <br />
-          <p>
-            Air Pressure {airPressure} {"hPa"}
-          </p>
-          <br />
-          <p>Dew Point {dewPoint}</p>
+
+     <div style={wrapperStyles}>
+        
+        </div>
+
+          <h1 className={`main-title-${activeSearch}`}>my Weather</h1>
+          <h2 className={`location-title-${activeSearch}`}>{locationTitle}</h2>
+
+          
+          <div className={`main-info-left-${activeSearch}`}>
+            {/* {new Date().toLocaleTimeString()} */}
+            <p>Cloud Cover {cloudCover}%</p>
+            
+            <p>Humidity {humidity}%</p>
+            
+            <p>Temperature {temperature}°</p>
+            
+            <p>Sunrise {sunriseMoment}</p>
+            
+            <p>Sunset {sunsetMoment}</p>
+          </div>
+          
+          <div className={`main-info-right-${activeSearch}`}>
+            <p>{weatherFunctions.capFirstletter(weatherDescription)}</p>
+            
+            <p>
+              Wind Speed {windSpeed} {"mph"}
+            </p>
+            
+            <p>
+              Wind Direction{" "}
+              {weatherFunctions.windDirectionFunc(windDirection)}
+            </p>
+            
+            <p>
+              Air Pressure {airPressure} {"hPa"}
+            </p>
+            
+            <p>Dew Point {dewPoint}</p>
+          </div>
+
+        <BasicMap 
+        longtitude={locationLattitude}
+          lattitude={locationLongtitude}
+        />
+
           <br />
           <div className="input-and-button">
-            <input className="searchbar" onChange={this.handleAutoComplete} type="text" name="searchbar" value={this.state.searchbar} />
-            <button className="get-weather" onClick={this.getWeather}>
+            <input className="searchbar" 
+              onChange={this.handleAutoComplete} 
+              type="search" name="searchbar"
+              value={this.state.searchbar} 
+            placeholder= "Enter Location here name or zip code here"
+              />
+            <button className="get-weather" onClick={this.getWeather} type="submit">
               Get weather
             </button>
-            <button className="get-weather" onClick={this.clearInput}>
-              Clear
-            </button>
-            <br />
+            {/* <button className="clear-button" onClick={this.clearInput} /> */}
+
+            {/* <br /> */}
 
             <div>
-              <ul>
+              <ul className="auto-list-container">
                 {googleAutocomplete.map((prediction, index, id) => (
                   <li
-                    name="googleAutocompleteSelection"
+                    className="auto-list-option"
+                    // name="googleAutocompleteSelection"
                     key={prediction.id}
                     prediction={prediction.description}
                     value={prediction.description}
@@ -258,6 +333,8 @@ class App extends Component {
               </ul>
             </div>
           </div>
+
+          
         </div>
       </div>;
   }

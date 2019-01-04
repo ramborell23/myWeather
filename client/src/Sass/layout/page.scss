@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css?family=Paytone+One|Poller+One');
+//Test fonts for data eg. cloud cover
+@import url('https://fonts.googleapis.com/css?family=Squada+One');
+@import url('https://fonts.googleapis.com/css?family=Bowlby+One+SC');
+@import url('https://fonts.googleapis.com/css?family=Archivo+Black');
+
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Lobster|Oleo+Script|Patua+One|Righteous');
+
+@import url('https://fonts.googleapis.com/css?family=Laila:500');
+
+
+// font-family: 'Oleo Script', cursive;
+// font-family: 'Lobster', cursive;
+// font-family: 'Righteous', cursive;
+// font-family: 'Abril Fatface', cursive;
+// font-family: 'Patua One', cursive;
+
+html, body {
+    margin: 0; 
+    height: 100%; 
+    // overflow: hidden;
+}
+
+.App {
+    // background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA-I292hhqrfSWzDiT9FcqETqBb4gHgc97s5JVecK0ji5fyEYdGQ");
+    // background-color: rgb(53, 61, 61);
+    background-color: rgb(255, 255, 255);
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    height: 900px;
+}
+
+.page-header {
+    background-color: #282c34;
+    min-height: 40px;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-around;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.page-title-clock{
+    // position: relative;
+    padding-top: 9px;
+}
+
+.main-title-{
+    font-family: 'Righteous', cursive;
+    // font-family: 'Oleo Script', cursive;
+    text-align: center;
+    font-size: 140px;   
+    animation-name: fade-in;
+	animation-fill-mode: both;
+    animation-duration: 2.5s;
+    color: rgb(87, 120, 209);
+    // color: rgb(237, 250, 53);
+}
+
+
+.main-title-active{
+    font-family: 'Righteous', cursive;
+    // font-family: 'Oleo Script', cursive;
+    text-align: left;
+    font-size: 30px;   
+    position: relative;
+    left: 5%;
+    margin-top: 0px;
+    margin-bottom: 2px;
+    animation-name:  shrink, translate-title;
+	animation-fill-mode: both, both;
+    animation-duration: 1s, 2s;
+    // animation-delay: 0s, 0s;
+    // animation-name:  translate-title;
+	// animation-fill-mode: both;
+    // animation-duration: 5s;
+    // animation-delay: 2.3s;
+    color: rgb(87, 120, 209);
+    // color: rgb(237, 250, 53);
+}
+
+
+
+.location-title-{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-family: 'Poller One', cursive;
+    color: white;
+    // animation-name: fade-in;
+	// animation-fill-mode: both;
+    // animation-duration: 6s;
+    // margin-top: 0em;
+    
+}
+
+.location-title-active{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-family: 'Poller One', cursive;
+    color: black;
+    // color: rgb(87, 120, 209);
+    animation-name: fade-in;
+	animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-delay: 2s;
+    // margin-top: 0em;
+    
+}
+
+.main-info-left-{
+    position: relative;
+    // left: 15px;
+    border:  5px red solid;
+    color: white;
+    width: 18%;
+    height: 230px;
+    left: 5px;
+    top :240px;
+    font-family: 'Squada One', cursive;
+    // animation-name:  rise-up;
+	// animation-fill-mode: both;
+    // animation-duration: 1s;
+    // font-family: 'Paytone One', sans-serif;
+    // background: transparent;
+    //  margin:0;
+    // padding:0;
+    
+    
+    
+}
+.main-info-left-active{
+    position: relative;
+    border:  3px black solid;
+    color: black;
+    width: 18%;
+    height: 230px;
+    left: 5px;
+    font-family: 'Laila', serif;
+    animation-name:  rise-up;
+	animation-fill-mode: both;
+    animation-duration: 1s;
+    text-align: center;
+    // animation-delay: 4s,
+    // font-family: 'Paytone One', sans-serif;
+    // background: transparent;
+    //  margin:0;
+    // padding:0;
+    
+    
+    
+}
+
+.main-info-right-{
+    position: relative;
+    bottom: 430px;
+    border:  5px black solid;
+    color: black;
+    width: 18%;
+    height: 400px;
+    left: 935px;
+    top :220px;
+    font-family: 'Archivo Black', sans-serif;
+    
+}
+
+.main-info-right-active{
+    position: relative;
+    // bottom: 60px;
+    border:  3px black solid;
+    color: black;
+    width: 18%;
+    height: 230px;
+    left: 935px;
+    font-family: 'Laila', serif;
+    animation-name:  rise-up2;
+	animation-fill-mode: both;
+    animation-duration: 1s;
+    text-align: center;
+    // animation-delay: 4s,
+}
+
+.auto-list-option{
+    border: 1px black solid;
+    list-style: none;
+    padding: 5px;
+    position: relative;
+    right: 2.4em;
+    background-color: white;
+    // padding-bottom: 1em;
+    box-shadow: 31px -1px 5px 0px rgba(0,0,0,0.17);
+}
+
+.auto-list-option:hover{
+    background-color: rgba(241, 240, 240, 0.923);
+}
+
+
+
+//OLD CSS
+
+.page-title {
+    background-color: #282c34;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.main-container {
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* min-height: 90vh;
+    min-width: 90vw; */
+    /* flex-direction: column; */
+    /* height: 100px; */
+    text-align: left;
+}
+
+.main-container>p{
+    margin: 0%;
+}
+
+.searchbar {
+    /* justify-content: center; */
+    /* align-self: center; */
+    /* position: absolute;
+    left: 35%;
+    top: 50%; */
+    height: 2em;
+    width: 25em;
+    
+}
+
+
+
+.input-and-button {
+    position: absolute;
+    // left: 35%;
+    // top: 80%;
+    animation-name: rise-up3 ;
+	animation-fill-mode: both;
+    animation-duration: 1.2s;
+    animation-delay: 1s;
+}
+
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes shrink{
+  0% { font-size: 140px; }
+  100% {  font-size: 30px; }
+}
+
+@keyframes translate-title {
+    0%  {left:200px; top:150px;}
+    100% {left:0px; top:0px;}
+}
+
+@keyframes rise-up {
+    0%  { top : 250px;}
+    100% { top: 35px;}
+}
+
+@keyframes rise-up2 {
+    0%  { bottom : 0;}
+    100% { bottom: 200px;}
+}
+
+@keyframes rise-up3 {
+    0%  {left: 35%; top: 140%;}
+    100% { left: 35%; top: 60%;}
+}
