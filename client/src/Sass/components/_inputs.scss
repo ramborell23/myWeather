@@ -1,0 +1,87 @@
+//Buttons
+.get-weather{
+    color: red;
+}
+.clear-button{
+    background: #92c7eb;
+    background-image: url("https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/010_x-512.png");
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+// #Search::-webkit-search-cancel-button{
+//     position:relative;
+//     right:20px;  
+
+//     -webkit-appearance: none;
+//     height: 20px;
+//     width: 20px;
+//     border-radius:10px;
+//     background: red;
+// }
+
+
+//Searchbar
+
+.searchbar {
+    /* justify-content: center; */
+    /* align-self: center; */
+    /* position: absolute;
+    left: 35%;
+    top: 50%; */
+    height: 2em;
+    width: 25em;
+    
+}
+
+.input-and-button- {
+    position: absolute;
+    // left: 35%;
+    // top: 80%;
+    animation-name: rise-up3 ;
+	animation-fill-mode: both;
+    animation-duration: 1.2s;
+    animation-delay: 1s;
+}
+
+.input-and-button-active {
+    position: absolute;
+    // left: 35%;
+    // top: 80%;
+    animation-name:  shrink, active-search ;
+	animation-fill-mode: both, both;
+    animation-duration: 1s,2s;
+    animation-delay: .5s, 2s;
+    .searchbar{
+        width:15em;
+    }
+    ul{
+        font-size: .5em; 
+    }
+}
+
+@keyframes rise-up3 {
+    0%  {left: 35%; top: 140%;}
+    100% { left: 35%; top: 60%;}
+}
+
+@keyframes active-search {
+    0%  {left: 400px; top: 375px;}
+    100% { left: 900px; top: 50px;}
+}
+
+
+// @keyframes shrink{
+//   0% { 
+//     // font-size: 1px;
+//     width: 25em 
+//     }
+//   100% {  
+//     // font-size:  5px; 
+//     width: 1em;
+//     }
+// }
+

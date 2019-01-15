@@ -4,6 +4,10 @@
 @import url("https://fonts.googleapis.com/css?family=Archivo+Black");
 @import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Lobster|Oleo+Script|Patua+One|Righteous");
 @import url("https://fonts.googleapis.com/css?family=Laila:500");
+.get-weather {
+  color: red;
+}
+
 .clear-button {
   background: #92c7eb;
   background-image: url("https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/010_x-512.png");
@@ -14,6 +18,72 @@
   background-position: center;
 }
 
+.get-weather {
+  color: red;
+}
+
+.clear-button {
+  background: #92c7eb;
+  background-image: url("https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/010_x-512.png");
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.searchbar {
+  /* justify-content: center; */
+  /* align-self: center; */
+  /* position: absolute;
+  left: 35%;
+  top: 50%; */
+  height: 2em;
+  width: 25em;
+}
+
+.input-and-button- {
+  position: absolute;
+  animation-name: rise-up3;
+  animation-fill-mode: both;
+  animation-duration: 1.2s;
+  animation-delay: 1s;
+}
+
+.input-and-button-active {
+  position: absolute;
+  animation-name: shrink, active-search;
+  animation-fill-mode: both, both;
+  animation-duration: 1s, 2s;
+  animation-delay: 0.5s, 2s;
+}
+.input-and-button-active .searchbar {
+  width: 15em;
+}
+.input-and-button-active ul {
+  font-size: 0.5em;
+}
+
+@keyframes rise-up3 {
+  0% {
+    left: 35%;
+    top: 140%;
+  }
+  100% {
+    left: 35%;
+    top: 60%;
+  }
+}
+@keyframes active-search {
+  0% {
+    left: 400px;
+    top: 375px;
+  }
+  100% {
+    left: 900px;
+    top: 50px;
+  }
+}
 html, body {
   margin: 0;
   height: 100%;
@@ -174,22 +244,71 @@ html, body {
   margin: 0%;
 }
 
-.searchbar {
-  /* justify-content: center; */
-  /* align-self: center; */
-  /* position: absolute;
-  left: 35%;
-  top: 50%; */
-  height: 2em;
-  width: 25em;
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes shrink {
+  0% {
+    font-size: 140px;
+  }
+  100% {
+    font-size: 30px;
+  }
+}
+@keyframes translate-title {
+  0% {
+    left: 200px;
+    top: 150px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}
+@keyframes rise-up {
+  0% {
+    top: 250px;
+  }
+  100% {
+    top: 35px;
+  }
+}
+@keyframes rise-up2 {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 200px;
+  }
+}
+.zoom-map- {
+  border: solid 2px black;
+  width: 50%;
+  position: relative;
 }
 
-.input-and-button {
-  position: absolute;
-  animation-name: rise-up3;
+.zoom-map-active {
+  border: solid 2px black;
+  width: 50%;
+  position: relative;
+  animation-name: rise-up-map;
   animation-fill-mode: both;
-  animation-duration: 1.2s;
+  animation-duration: 2s;
   animation-delay: 1s;
+}
+
+.svg-map {
+  width: 48%;
+}
+
+.rsm-svg {
+  width: 99%;
+  height: 50%;
 }
 
 @keyframes fade-in {
@@ -242,6 +361,16 @@ html, body {
   100% {
     left: 35%;
     top: 60%;
+  }
+}
+@keyframes rise-up-map {
+  0% {
+    left: 25%;
+    bottom: -40px;
+  }
+  100% {
+    left: 25%;
+    bottom: 440px;
   }
 }
 

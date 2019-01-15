@@ -5,15 +5,14 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('react-backend:server');
+var debug = require('debug')('prac-back-end:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-app.set("port", 3100);
-
+app.set('port', 3100);
 
 /**
  * Create HTTP server.

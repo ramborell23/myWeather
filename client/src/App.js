@@ -22,10 +22,10 @@ const wrapperStyles = {
   margin: "0 auto"
 };
 var moment = require("moment-timezone");
-var d3 = require("d3");
-var topojson = require("topojson");
-var d3Geo = require("d3-geo");
-var moment = require("moment-timezone");
+// var d3 = require("d3");
+// var topojson = require("topojson");
+// var d3Geo = require("d3-geo");
+// var moment = require("moment-timezone");
 const dotenv = require("dotenv");
 dotenv.config();
 const sessionToken = Math.floor(Math.random() * 9999999999) + 1000000000;
@@ -146,7 +146,7 @@ class App extends Component {
   };
 
   handleAutoComplete = (event) => {
-    const { searchbar } = this.state;
+    // const { searchbar } = this.state;
     let inputValue = ""
     //Check if person is typing or clicking 
     if (event.target.value === 0) {
@@ -212,11 +212,11 @@ class App extends Component {
       windSpeed,
       windDirection,
       airPressure,
-      momentTimezoneCountry,
+      // momentTimezoneCountry,
       googleAutocomplete,
-      googleAutocompleteSelection,
-      searchbar,
-      backgroundImage,
+      // googleAutocompleteSelection,
+      // searchbar,
+      // backgroundImage,
       activeSearch,
       locationLattitude,
       locationLongtitude
@@ -228,24 +228,22 @@ class App extends Component {
     // searchbar = googleAutocompleteSelection
     dewPoint = Math.round(dewPoint);
     // console.log('searchbar', searchbar)
-    console.log("weatherDescription", locationLattitude, locationLongtitude);
-    console.log("locationLongtitude", locationLongtitude);
-    console.log("locationLattitude", locationLattitude);
-    let rr = locationLattitude
-    // let along = locationLongtitude;
-    let tempInputHolder = searchbar
+    // console.log("weatherDescription", locationLattitude, locationLongtitude);
+    // console.log("locationLongtitude", locationLongtitude);
+    // console.log("locationLattitude", locationLattitude);
+    console.log("activeSearch====>>", activeSearch);
+
     
-    // console.log(backgroundStorage.backgrounds[backgroundStorage.randomize()]);
 
     // let imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ05R2TdmpnTtoJc1zT1avGv7bsGFsAOVbB9MfoZI-Qn0xkHVu-8g";
-    var divStyle = {
-      backgroundImage: 'url(' + backgroundImage + ')',
-      // backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      height:'100%',
-      backgroundSize: 'contain'
+    // var divStyle = {
+    //   backgroundImage: 'url(' + backgroundImage + ')',
+    //   // backgroundSize: 'cover',
+    //   backgroundRepeat: 'no-repeat',
+    //   height:'100%',
+    //   backgroundSize: 'contain'
 
-    }
+    // }
     return <div ref="app-back">
         <div className="page-header">
           {/* <title className="page-title"> myWeather App</title> */}
@@ -263,7 +261,6 @@ class App extends Component {
 
           
           <div className={`main-info-left-${activeSearch}`}>
-            {/* {new Date().toLocaleTimeString()} */}
             <p>Cloud Cover {cloudCover}%</p>
             
             <p>Humidity {humidity}%</p>
@@ -297,10 +294,12 @@ class App extends Component {
         <BasicMap 
         longtitude={locationLattitude}
           lattitude={locationLongtitude}
+          locationTitle={locationTitle}
+          activeSearch={activeSearch}
         />
 
           <br />
-          <div className="input-and-button">
+          <div className={`input-and-button-${activeSearch}`}>
             <input className="searchbar" 
               onChange={this.handleAutoComplete} 
               type="search" name="searchbar"
@@ -310,9 +309,7 @@ class App extends Component {
             <button className="get-weather" onClick={this.getWeather} type="submit">
               Get weather
             </button>
-            {/* <button className="clear-button" onClick={this.clearInput} /> */}
 
-            {/* <br /> */}
 
             <div>
               <ul className="auto-list-container">

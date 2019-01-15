@@ -1,0 +1,67 @@
+.zoom-map-{
+    border: solid 2px black;
+    width: 50%;
+    position: relative;
+    // margin-left:300px;
+    // animation-name: frise-up-map;
+	// animation-fill-mode: both;
+    // animation-duration: 1s;
+    // animation-delay: 2s;
+}
+.zoom-map-active{
+    border: solid 2px black;
+    width: 50%;
+    // height: 300px;
+    position: relative;
+    // margin-left:10px;
+    animation-name: rise-up-map;
+	animation-fill-mode: both;
+    animation-duration: 2s;
+    animation-delay: 1s;
+}
+.svg-map{
+    width: 48%;
+}
+.rsm-svg {
+    width: 99%;
+    height: 50%;
+}
+
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes shrink{
+  0% { font-size: 140px; }
+  100% {  font-size: 30px; }
+}
+
+@keyframes translate-title {
+    0%  {left:200px; top:150px;}
+    100% {left:0px; top:0px;}
+}
+
+@keyframes rise-up {
+    0%  { top : 250px;}
+    100% { top: 35px;}
+}
+
+@keyframes rise-up2 {
+    0%  { bottom : 0;}
+    100% { bottom: 200px;}
+}
+
+@keyframes rise-up3 {
+    0%  {left: 35%; top: 140%;}
+    100% { left: 35%; top: 60%;}
+}
+@keyframes rise-up-map {
+    0%  {left: 25%; bottom: -40px;}
+    // 20%  {left: 25%; bottom: 140px;}
+    // 40%  {left: 25%; bottom: 140px;}
+    // 60%  {left: 25%; bottom: 240px;}
+    // 80%  {left: 25%; bottom: 340px;}
+    100% { left: 25%; bottom: 440px;}
+}
