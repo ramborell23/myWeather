@@ -1,6 +1,14 @@
 //Buttons
 .get-weather{
     color: red;
+    // width: 10%;
+    // height: 0;
+    // padding-bottom: 10%;
+    // border-radius: 50%;
+    // border: 2px solid #f5f5f5;
+    // overflow: hidden;
+    // background: #464646;
+    // box-shadow: 0 0 3px gray;
 }
 .clear-button{
     background: #92c7eb;
@@ -12,35 +20,15 @@
     background-position: center;
 }
 
-// #Search::-webkit-search-cancel-button{
-//     position:relative;
-//     right:20px;  
-
-//     -webkit-appearance: none;
-//     height: 20px;
-//     width: 20px;
-//     border-radius:10px;
-//     background: red;
-// }
-
-
-//Searchbar
 
 .searchbar {
-    /* justify-content: center; */
-    /* align-self: center; */
-    /* position: absolute;
-    left: 35%;
-    top: 50%; */
     height: 2em;
     width: 25em;
     
 }
 
 .input-and-button- {
-    position: absolute;
-    // left: 35%;
-    // top: 80%;
+    position: relative;
     animation-name: rise-up3 ;
 	animation-fill-mode: both;
     animation-duration: 1.2s;
@@ -48,19 +36,49 @@
 }
 
 .input-and-button-active {
-    position: absolute;
-    // left: 35%;
-    // top: 80%;
-    animation-name:  shrink, active-search ;
-	animation-fill-mode: both, both;
-    animation-duration: 1s,2s;
-    animation-delay: .5s, 2s;
+    // align-self: flex-start;
+    position: relative;
+    animation-name:  translate-search;
+	animation-fill-mode: both;
+    animation-duration: 4s;
+    animation-delay:  0s;
+    overflow: visible;
+    ul{
+        font-size: calc(8px + 1vw); 
+    }
     .searchbar{
         width:15em;
     }
-    ul{
-        font-size: .5em; 
+    .auto-list-option{
+        width: 15vw;
+        height: 1.3vw;
+        font-size: 1vw;
+        // border: 1px red solid;
+        // list-style: none;
+        // // padding: 5px;
+        // position: relative;
+        // right: 2.4em;
+        // background-color: white;
+        // // padding-bottom: 1em;
+        // box-shadow: 31px -1px 5px 0px rgba(0,0,0,0.17);
     }
+}
+
+.auto-list-option{
+    border: 1px black solid;
+    list-style: none;
+    // padding: 5px;
+    position: relative;
+    right: 2.4em;
+    background-color: white;
+    // padding-bottom: 1em;
+    box-shadow: 31px -1px 5px 0px rgba(0,0,0,0.17);
+    z-index: 1;
+    
+}
+
+.auto-list-option:hover{
+    background-color: rgba(241, 240, 240, 0.923);
 }
 
 @keyframes rise-up3 {
@@ -69,8 +87,8 @@
 }
 
 @keyframes active-search {
-    0%  {left: 400px; top: 375px;}
-    100% { left: 900px; top: 50px;}
+    0%  {right:  -50%; }
+    100% { right: 0%;}
 }
 
 
@@ -85,3 +103,17 @@
 //     }
 // }
 
+@keyframes zip-down{
+    0%{transform: translateX(0) }
+    100%{ transform: translateY(5em)}
+}
+
+@keyframes translate-search {
+    0%  {right:250px; top:450px;}
+    100% {right:0px;  top: 5px;}
+}
+
+@keyframes hide-search {
+    0%  { visibility: visible;}
+    100% { visibility:hidden ; }
+}

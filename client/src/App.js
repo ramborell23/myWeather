@@ -54,8 +54,8 @@ class App extends Component {
       momentTimezoneCity: "",
       momentTimezoneCountry: "",
       googleAutocomplete: [],
-      backgroundImage:'',
-      activeSearch:''
+      backgroundImage: '',
+      activeSearch: ''
       // googleAutocompleteSelection: ""
 
     };
@@ -227,13 +227,10 @@ class App extends Component {
     let dewPoint = weatherFunctions.dewPointCalc(humidity, temperature);
     // searchbar = googleAutocompleteSelection
     dewPoint = Math.round(dewPoint);
-    // console.log('searchbar', searchbar)
-    // console.log("weatherDescription", locationLattitude, locationLongtitude);
-    // console.log("locationLongtitude", locationLongtitude);
-    // console.log("locationLattitude", locationLattitude);
+
     console.log("activeSearch====>>", activeSearch);
 
-    
+
 
     // let imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ05R2TdmpnTtoJc1zT1avGv7bsGFsAOVbB9MfoZI-Qn0xkHVu-8g";
     // var divStyle = {
@@ -245,67 +242,26 @@ class App extends Component {
 
     // }
     return <div ref="app-back">
-        <div className="page-header">
-          {/* <title className="page-title"> myWeather App</title> */}
-          <Clock className={"page-title-clock"} format={"h:mm:ssa"} ticking={true} />
+      <div className="page-header">
+        {/* <title className="page-title"> myWeather App</title> */}
+        <Clock className={"page-title-clock"} format={"h:mm:ssa"} ticking={true} />
+      </div>
+
+      <div className="main-container ">
+
+        <div style={wrapperStyles}>
         </div>
-
-        <div className="main-container ">
-
-     <div style={wrapperStyles}>
-        
+        <div className={`heading-container-${activeSearch}`}>
+        <div>
+        <h1 className={`main-title-${activeSearch}`}>my Weather</h1>
         </div>
-
-          <h1 className={`main-title-${activeSearch}`}>my Weather</h1>
-          <h2 className={`location-title-${activeSearch}`}>{locationTitle}</h2>
-
-          
-          <div className={`main-info-left-${activeSearch}`}>
-            <p>Cloud Cover {cloudCover}%</p>
-            
-            <p>Humidity {humidity}%</p>
-            
-            <p>Temperature {temperature}°</p>
-            
-            <p>Sunrise {sunriseMoment}</p>
-            
-            <p>Sunset {sunsetMoment}</p>
-          </div>
-          
-          <div className={`main-info-right-${activeSearch}`}>
-            <p>{weatherFunctions.capFirstletter(weatherDescription)}</p>
-            
-            <p>
-              Wind Speed {windSpeed} {"mph"}
-            </p>
-            
-            <p>
-              Wind Direction{" "}
-              {weatherFunctions.windDirectionFunc(windDirection)}
-            </p>
-            
-            <p>
-              Air Pressure {airPressure} {"hPa"}
-            </p>
-            
-            <p>Dew Point {dewPoint}</p>
-          </div>
-
-        <BasicMap 
-        longtitude={locationLattitude}
-          lattitude={locationLongtitude}
-          locationTitle={locationTitle}
-          activeSearch={activeSearch}
-        />
-
-          <br />
           <div className={`input-and-button-${activeSearch}`}>
-            <input className="searchbar" 
-              onChange={this.handleAutoComplete} 
+            <input className="searchbar"
+              onChange={this.handleAutoComplete}
               type="search" name="searchbar"
-              value={this.state.searchbar} 
-            placeholder= "Enter Location here name or zip code here"
-              />
+              value={this.state.searchbar}
+              placeholder="Enter Location here name or zip code here"
+            />
             <button className="get-weather" onClick={this.getWeather} type="submit">
               Get weather
             </button>
@@ -331,9 +287,62 @@ class App extends Component {
             </div>
           </div>
 
-          
         </div>
-      </div>;
+        <h2 className={`location-title-${activeSearch}`}>{locationTitle}</h2>
+
+        <div className={`info-container-${activeSearch}`}>
+          <div className={`main-info-left-${activeSearch}`}>
+            <p>Cloud Cover {cloudCover}%</p>
+
+            <p>Humidity {humidity}%</p>
+
+            <p>Temperature {temperature}°</p>
+
+            <p>Sunrise {sunriseMoment}</p>
+
+            <p>Sunset {sunsetMoment}</p>
+          </div>
+
+          <BasicMap
+            longtitude={locationLattitude}
+            lattitude={locationLongtitude}
+            locationTitle={locationTitle}
+            activeSearch={activeSearch}
+          />
+
+          <div className={`main-info-right-${activeSearch}`}>
+            <p>{weatherFunctions.capFirstletter(weatherDescription)}</p>
+
+            <p>
+              Wind Speed {windSpeed} {"mph"}
+            </p>
+
+            <p>
+              Wind Direction{" "}
+              {weatherFunctions.windDirectionFunc(windDirection)}
+            </p>
+
+            <p>
+              Air Pressure {airPressure} {"hPa"}
+            </p>
+
+            <p>Dew Point {dewPoint}</p>
+          </div>
+        </div>
+
+        {/* <BasicMap 
+        longtitude={locationLattitude}
+          lattitude={locationLongtitude}
+          locationTitle={locationTitle}
+          activeSearch={activeSearch}
+        /> */}
+
+        <br />
+        
+
+
+      </div>
+    </div>;
   }
 }
 
