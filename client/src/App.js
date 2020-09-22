@@ -8,6 +8,8 @@ import weatherFunctions from "./WeatherFunctions/functions.js";
 import backgroundStorage from "./WeatherFunctions/backgroundStorage.js";
 import Clock from "react-live-clock";
 import BasicMap from "./map.jsx";
+import LeftPanel from "./LeftPanel.js";
+import RightPanel from "./RightPanel.js";
 
 // import {
 //   ComposableMap,
@@ -106,25 +108,15 @@ class App extends Component {
               .then(res => {
                 let fiveDayForecast = res.data.list;
                 for (let i = 0; i < fiveDayForecast.length; i++) {
-                  let forecastIndexValue = fiveDayForecast[i]["dt_txt"].slice(
-                    0,
-                    10
-                  );
-                  if (
-                    fiveDayHashTable.hasOwnProperty(
-                      fiveDayForecast[i]["dt_txt"].slice(0, 10)
-                    )
-                  ) {
-                    fiveDayHashTable[
-                      fiveDayForecast[i]["dt_txt"].slice(0, 10)
-                    ] = [
-                        ...fiveDayHashTable[forecastIndexValue],
+                  let forecastIndexValue = fiveDayForecast[i]["dt_txt"].slice(0,10);
+
+                  if (fiveDayHashTable.hasOwnProperty( fiveDayForecast[i]["dt_txt"].slice(0, 10)) ) {
+                    fiveDayHashTable[fiveDayForecast[i]["dt_txt"].slice(0, 10)] =
+                     [...fiveDayHashTable[forecastIndexValue],
                         fiveDayForecast[i]
                       ];
                   } else {
-                    fiveDayHashTable[
-                      fiveDayForecast[i]["dt_txt"].slice(0, 10)
-                    ] = [fiveDayForecast[i]];
+                    fiveDayHashTable[fiveDayForecast[i]["dt_txt"].slice(0, 10)] = [fiveDayForecast[i]];
                   }
                 }
                 // console.log('TEMP ARR+++>',tempArr);
@@ -161,10 +153,14 @@ class App extends Component {
       // console.log("(event.target.value === undefined", event.target.attributes[1]["nodeValue"]);
     }
     // console.log('searchbar', searchbar)
-    event.persist();
+    // event.persist();
 
     axios
-      .get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputValue}&types=(regions)&key=${process.env.REACT_APP_GOOGLE_API_KEY}&sessiontoken=${sessionToken}`)
+      .get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputValue}&types=(regions)&key=${process.env.REACT_APP_GOOGLE_API_KEY}&sessiontoken=${sessionToken}`, {
+            headers: {
+              // 'Access-Control-Allow-Origin': '*',
+            },
+          })
       .then(res => {
         let googleAutocomplete = res.data.predictions;
         this.setState({
@@ -176,7 +172,6 @@ class App extends Component {
       .catch(function (error) {
         console.log(error);
       });
-
   };
 
 
@@ -229,24 +224,13 @@ class App extends Component {
     dewPoint = Math.round(dewPoint);
 
     console.log("activeSearch====>>", activeSearch);
+    console.log("activeSearch====>>", activeSearch);
 
-
-
-    // let imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ05R2TdmpnTtoJc1zT1avGv7bsGFsAOVbB9MfoZI-Qn0xkHVu-8g";
-    // var divStyle = {
-    //   backgroundImage: 'url(' + backgroundImage + ')',
-    //   // backgroundSize: 'cover',
-    //   backgroundRepeat: 'no-repeat',
-    //   height:'100%',
-    //   backgroundSize: 'contain'
-
-    // }
     return <div ref="app-back">
       <div className="page-header">
         {/* <title className="page-title"> myWeather App</title> */}
         <Clock className={"page-title-clock"} format={"h:mm:ssa"} ticking={true} />
       </div>
-
       <div className="main-container ">
 
         <div style={wrapperStyles}>
@@ -265,8 +249,6 @@ class App extends Component {
             <button className="get-weather" onClick={this.getWeather} type="submit">
               Get weather
             </button>
-
-
             <div>
               <ul className="auto-list-container">
                 {googleAutocomplete.map((prediction, index, id) => (
@@ -286,61 +268,34 @@ class App extends Component {
               </ul>
             </div>
           </div>
-
         </div>
+        
         <h2 className={`location-title-${activeSearch}`}>{locationTitle}</h2>
-
         <div className={`info-container-${activeSearch}`}>
-          <div className={`main-info-left-${activeSearch}`}>
-            <p>Cloud Cover {cloudCover}%</p>
-
-            <p>Humidity {humidity}%</p>
-
-            <p>Temperature {temperature}°</p>
-
-            <p>Sunrise {sunriseMoment}</p>
-
-            <p>Sunset {sunsetMoment}</p>
-          </div>
-
+          < LeftPanel
+            activeSearch={activeSearch}
+            cloudCover={cloudCover}
+            humidity={humidity}
+            temperature={temperature}
+            sunriseMoment={sunriseMoment}
+            sunsetMoment={sunsetMoment}
+          />
           <BasicMap
             longtitude={locationLattitude}
             lattitude={locationLongtitude}
             locationTitle={locationTitle}
             activeSearch={activeSearch}
           />
-
-          <div className={`main-info-right-${activeSearch}`}>
-            <p>{weatherFunctions.capFirstletter(weatherDescription)}</p>
-
-            <p>
-              Wind Speed {windSpeed} {"mph"}
-            </p>
-
-            <p>
-              Wind Direction{" "}
-              {weatherFunctions.windDirectionFunc(windDirection)}
-            </p>
-
-            <p>
-              Air Pressure {airPressure} {"hPa"}
-            </p>
-
-            <p>Dew Point {dewPoint}</p>
-          </div>
-        </div>
-
-        {/* <BasicMap 
-        longtitude={locationLattitude}
-          lattitude={locationLongtitude}
-          locationTitle={locationTitle}
+          <RightPanel
           activeSearch={activeSearch}
-        /> */}
-
-        <br />
-        
-
-
+          weatherDescription={weatherDescription}
+          windSpeed={windSpeed}
+          windDirection={windDirection}
+          airPressure={airPressure}
+          dewPoint={dewPoint}
+          />
+        </div>
+        <br/>
       </div>
     </div>;
   }

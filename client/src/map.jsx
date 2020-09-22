@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import { feature } from "topojson-client"
-import {get} from "axios"
-import NorthAmerica from "ne_50m_admin.json";
+// import { feature } from "topojson-client"
+// import {get} from "axios"
+// import NorthAmerica from "ne_50m_admin.json";
 import NorthH from "map.json";
-import World from "output.json";
+// import World from "output.json";
 
 
 
@@ -96,7 +96,7 @@ class BasicMap extends Component {
       // console.log(NorthAmerica);
       // console.log("MAP LONG AND LATT",longtitude, lattitude);
       console.log('CHECK TO SEE IF UPDATE',this.state )
-      let checkWidth = window.innerWidth / 2
+      // let checkWidth = window.innerWidth / 2
       return <div className={`zoom-map-${activeSearch}`}>
         <button onClick={this.handleZoomIn}>{"Zoom in"}</button>
         <button onClick={this.handleZoomOut}>{"Zoom out"}</button>

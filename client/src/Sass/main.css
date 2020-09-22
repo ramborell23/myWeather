@@ -45,15 +45,10 @@
 .input-and-button-active .searchbar {
   width: 15em;
 }
-.input-and-button-active .auto-list-option {
-  width: 15vw;
-  height: 1.3vw;
-  font-size: 1vw;
-}
-
 .auto-list-option {
   border: 1px black solid;
   list-style: none;
+  width: 40%;
   position: relative;
   right: 2.4em;
   background-color: white;
@@ -157,6 +152,7 @@ html, body {
   animation-fill-mode: both;
   animation-duration: 2.5s;
   color: #5778d1;
+  margin-bottom: 0em;
 }
 
 .main-title-active {
